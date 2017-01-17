@@ -429,7 +429,8 @@ func get_values(base int, per_thread int) {
 		start = time.Now()
 		_, err := client.Get(toString(key), false, false)
 		elapsed := time.Since(start)
-		log.Println("key %s took %s", key, elapsed)
+		//log.Println("key %s took %s", key, elapsed)
+		timeTrack(start, elapsed, toString(key))
 
 		// This part is helpful in generating the commandline report
 		var errStr string
@@ -455,7 +456,8 @@ func create_keys(base int, count int, r [2]int) {
 		start = time.Now()
 		_, err := client.Set(toString(key), value, 1000)
 		elapsed := time.Since(start)
-		log.Println("key %s took %s", key, elapsed)
+		//log.Println("key %s took %s", key, elapsed)
+		timeTrack(start, elapsed, toString(key))
 
 		// This part is helpful in generating the commandline report
 		var errStr string
@@ -482,7 +484,8 @@ func update_values(base int, per_thread int) {
 		start = time.Now()
 		_, err := client.Set(toString(key), val, 1000)
 		elapsed := time.Since(start)
-		log.Println("key %s took %s", key, elapsed)
+		//log.Println("key %s took %s", key, elapsed)
+		timeTrack(start, elapsed, toString(key))
 
 		// This part is helpful in generating the commandline report
 		var errStr string
@@ -507,7 +510,8 @@ func delete_values(base int, per_thread int) {
 		start = time.Now()
 		_, err := client.Delete(toString(key), false)
 		elapsed := time.Since(start)
-		log.Println("key %s took %s", key, elapsed)
+		//log.Println("key %s took %s", key, elapsed)
+		timeTrack(start, elapsed, toString(key))
 
 		// This part is helpful in generating the commandline report
 		var errStr string
@@ -555,9 +559,9 @@ func getMemUse(pid string) string {
 }
 
 // This function prints the time elapesed for a particular request.
-func timeTrack(start time.Time, name string) {
-	elapsed := time.Since(start)
-	log.Println("key %s took %s", name, elapsed)
+func timeTrack(start time.Time, elapsed time.Duration, name string) {
+	//elapsed := time.Since(start)
+	log.Println(fmt.Sprintf("key %s took %s", name, elapsed))
 }
 
 // This function is used to get the pulic ssh key to make password-less
